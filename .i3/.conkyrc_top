@@ -1,54 +1,24 @@
-out_to_x no
-own_window no
-out_to_console yes
 background no
-max_text_width 0
- 
-# Update interval in seconds
-update_interval 1.0
- 
-# This is the number of times Conky will update before quitting.
-# Set to zero to run forever.
-#total_run_times 0
- 
-# Shortens units to a single character (kiB->k, GiB->G, etc.). Default is off.
-short_units yes
- 
-# How strict should if_up be when testing an interface for being up?
-# The value is one of up, link or address, to check for the interface
-# being solely up, being up and having link or being up, having link
-# and an assigned IP address. 
-if_up_strictness route
- 
-# Add spaces to keep things from moving about?  This only affects certain objects.
-# use_spacer should have an argument of left, right, or none
-use_spacer left
- 
-# Force UTF8? note that UTF8 support required XFT
-override_utf8_locale no
- 
-# number of cpu samples to average
-# set to 1 to disable averaging
-cpu_avg_samples 2
- 
-# Stuff after 'TEXT' will be formatted on screen
+out_to_x no
+out_to_console yes
+update_interval 1
 TEXT
-# JSON for i3bar
 [
-
-
-
+{"full_text": "Mail ${execi 600 ~/.i3/.my/mail.py} ","color":"\#87ff73"},
+{"full_text": " ▲ ${upspeed enp3s0f2} ", "color":"\#ff0000"},
+{"full_text": " ▼ ${downspeed enp3s0f2} ", "color":"\#00fff2"},
 {"full_text" : " / ${fs_free /} ", "color":"\#B589ff"},
-
 {"full_text" : " /home ${fs_free /home} ", "color":"\#ffB589"},
+{"full_text": " cpu ${cpu}% ", "color":"\#0FA625"},
+{"full_text": " ram ${memperc}% ", "color":"\#B58900"},
+{"full_text": " ♪ ${exec amixer get Master |grep 'Front Left' | grep -o "[[:digit:]]*%"} ", "color":"\#75dcff"},
+{ "full_text" : " bat ${battery_percent}% " , "color" : "\#87ff73" },
+{"full_text": " ${time %a %d %b} ${time %H:%M:%S} ","color": "\#ffa24e"}],
 
-
-    {"full_text": " cpu ${cpu}% ", "color":"\#0FA625"},
-    {"full_text": " swap ${swapperc}% ", "color":"\#00A9B5"},
-    {"full_text": " ram ${memperc}% ", "color":"\#B58900"},
-
-
-
-
-    #Shows current user
-  {"full_text": " ☻ [${exec whoami}] ", "color":"\#59A6A4"},
+#
+#{"full_text": " swap ${swapperc}% ", "color":"\#00A9B5"},
+#
+#{"full_text": " ☻ [${exec whoami}] ", "color":"\#59A6A4"},
+#
+#{"full_text": " ↑ [${uptime}] ","color": "\#dc322f"},
+#
