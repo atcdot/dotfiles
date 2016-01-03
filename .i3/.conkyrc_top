@@ -5,12 +5,12 @@ update_interval 1
 TEXT
 [
 {"full_text": "Mail ${execi 600 ~/.i3/.my/mail.py} ","color":"\#87ff73"},
-{"full_text": " ▲ ${upspeed enp3s0f2} ", "color":"\#ff0000"},
-{"full_text": " ▼ ${downspeed enp3s0f2} ", "color":"\#00fff2"},
+{"full_text": " ▲ ${upspeed wlp2s0} ", "color":"\#B58900"},
+{"full_text": " ▼ ${downspeed wlp2s0} ", "color":"\#00fff2"},
 {"full_text" : " / ${fs_free /} ", "color":"\#B589ff"},
 {"full_text" : " /home ${fs_free /home} ", "color":"\#ffB589"},
 {"full_text": " cpu ${cpu}% ", "color":"\#0FA625"},
-{"full_text": " ram ${memperc}% ", "color":"\#B58900"},
+{"full_text": " ram ${memperc}% ", "color":"\#ff0000"},
 {"full_text": " ♪ ${exec amixer get Master |grep 'Front Left' | grep -o "[[:digit:]]*%"} ", "color":"\#75dcff"},
 { "full_text" : " bat ${battery_percent}% " , "color" : "\#87ff73" },
 {"full_text": " ${time %a %d %b} ${time %H:%M:%S} ","color": "\#ffa24e"}],
@@ -21,4 +21,7 @@ TEXT
 #{"full_text": " ☻ [${exec whoami}] ", "color":"\#59A6A4"},
 #
 #{"full_text": " ↑ [${uptime}] ","color": "\#dc322f"},
+#
+#wlp2s0
+#enp3s0f2
 #
