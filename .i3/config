@@ -1,16 +1,77 @@
+###############################
+#                             #
+#   Configuring i3            #
+#                             #
+###############################
+
+
+###############################
+#   Autostart                 #
+###############################
+
+# prevent sleep
+exec --no-startup-id xset s off
+exec --no-startup-id xset dpms 0 0 0
+
+exec --no-startup-id feh --bg-scale ~/.i3/cCyPTe3d1OA.jpg
+exec --no-startup-id setxkbmap -layout 'us,ru' -variant 'winkeys' -option 'grp:caps_toggle,grp_led:caps'
+# exec --no-startup-id nm-applet
+# exec --no-startup-id gxkb
+exec --no-startup-id compton -CGb --backend glx --vsync opengl --paint-on-overlay
+exec --no-startup-id blueman-applet
+
+# startup volume
+# exec pulseaudio
+# exec amixer set Master playback 50%
+# startup backlight
+# exec --no-startup-id xbacklight -set 60 &
+
+###############################
+#   Variables                 #
+###############################
 set $mod Mod4
-font pango:DejaVu Sans Mono 8
+
+###############################
+#   Fonts                     #
+###############################
+# font pango:Terminus 8
+font pango:DejaVu Sans Mono 9
+
+###############################
+#   The floating modifier     #
+###############################
 floating_modifier $mod
+
+###############################
+#   Border style              #
+###############################
+new_window  pixel 0
+new_float   pixel 1
+#hide_edge_borders none
+hide_edge_borders both
+
+###############################
+#   Colors                    #
+###############################
+# border, background, text and indicator color for a window decorations
+client.focused          #37474F #37474F #ECEFF1 #455A64
+client.focused_inactive #1d1f21 #1d1f21 #ECEFF1 #37474F
+client.unfocused        #1d1f21 #1d1f21 #ECEFF1 #37474F
+client.urgent           #C62828 #C62828 #FFEBEE #D32F2F
+client.placeholder      #1d1f21 #1d1f21 #ECEFF1 #37474F
+
+###############################
+#   Keyboard bindings         #
+###############################
+
+# ALT-TAB
+bindsym Mod1+Tab workspace back_and_forth
 
 # start a terminal
 bindsym $mod+Return exec --no-startup-id xfce4-terminal --hide-menubar
 
 # kill focused window
 bindsym $mod+Shift+q kill
-
-new_window pixel 0
-new_float pixel 1
-hide_edge_borders both
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec --no-startup-id dmenu_run -fn '-*-ubuntu mono-medium-r-*-*-16-*-*-*-*-*-*-*' -sb '#005544' -sf '#D5A500'
@@ -67,7 +128,6 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindsym $mod+d focus child
 
-
 # switch to workspace
 bindsym $mod+1 workspace 1
 bindsym $mod+2 workspace 2
@@ -95,11 +155,6 @@ bindsym $mod+Shift+0 move container to workspace 10
 # reload the configuration file
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
-
-# exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec --no-startup-id "i3-nagbar -t warning -m 'Выйти?' -b 'Да' 'i3-msg exit'"
-
-bindsym $mod+Shift+s exec --no-startup-id "i3-nagbar -t warning -m 'Спать?' -b 'Да' 'systemctl suspend'"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -152,19 +207,44 @@ bindsym XF86WWW exec --no-startup-id killall gsimplecal
 
 bindsym $mod+n exec --no-startup-id nm-applet
 bindsym $mod+t border toggle
-bindsym $mod+b exec --no-startup-id i3lock -c 000000
-
-# startup volume
-# exec pulseaudio
-# exec amixer set Master playback 50%
 
 # Backlight buttons
 # xbacklight
 bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 5
 bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 5
 
-# startup backlight
-# exec --no-startup-id xbacklight -set 60 &
+bindsym $mod+c exec --no-startup-id Thunar
+
+#####################################################
+#                                                   #
+#   Set shut down, restart and locking features     #
+#                                                   #
+#####################################################
+
+# locker shortcut
+#bindsym $mod+b exec --no-startup-id i3lock -c 000000
+bindsym $mod+b exec --no-startup-id ~/.i3/i3lock
+
+bindsym $mod+Shift+e mode "$mode_system"
+set $mode_system (e)xit, (s)uspend, (r)eboot, (Shift+s)hutdown
+mode "$mode_system" {
+    bindsym s exec --no-startup-id ~/.i3/i3exit suspend, mode "default"
+    bindsym e exec --no-startup-id ~/.i3/i3exit logout, mode "default"
+    bindsym r exec --no-startup-id ~/.i3/i3exit reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id ~/.i3/i3exit shutdown, mode "default"
+
+    # exit system mode: "Enter" or "Escape"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+# exit i3 (logs you out of your X session)
+# bindsym $mod+Shift+e exec --no-startup-id "i3-nagbar -t warning -m 'Выйти?' -b 'Да' 'i3-msg exit'"
+# bindsym $mod+Shift+s exec --no-startup-id "i3-nagbar -t warning -m 'Спать?' -b 'Да' 'systemctl suspend'"
+
+# exit i3 (logs you out of your X session)
+# bindsym $mod+Shift+e exec --no-startup-id "i3-nagbar -t warning -m 'Ты нажал выход из системы. Ты действительно хочешь выйти?' -b 'Да, выйти' 'i3-msg exit'"
+
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -191,14 +271,3 @@ colors {
 #    mode hide
 #}
 
-exec --no-startup-id feh --bg-scale ~/.i3/wallpaper.jpg
-
-exec --no-startup-id setxkbmap -layout 'us,ru' -variant 'winkeys' -option 'grp:caps_toggle,grp_led:caps'
-
-# exec --no-startup-id nm-applet
-
-# exec --no-startup-id gxkb
-
-exec --no-startup-id compton -CGb --backend glx --vsync opengl --paint-on-overlay
-
-exec --no-startup-id blueman-applet

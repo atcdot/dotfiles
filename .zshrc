@@ -86,3 +86,5 @@ source $ZSH/oh-my-zsh.sh
 
 source ~/.phpbrew/bashrc
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting

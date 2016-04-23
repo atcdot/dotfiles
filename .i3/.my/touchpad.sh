@@ -12,4 +12,11 @@ if synclient -l | grep "TouchpadOff.*=.*0" ; then
  synclient TouchpadOff=1 ;
 else
  synclient TouchpadOff=0 ;
+ synclient HorizTwoFingerScroll=1 ;
+ synclient AccelFactor=0.1 ;
+ synclient MaxSpeed=3 ;
+ synclient MinSpeed=2 ;
+ synclient CircularScrolling=1 ;
 fi
+
+
