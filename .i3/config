@@ -17,7 +17,7 @@ exec --no-startup-id xset s off
 exec --no-startup-id xset dpms 0 0 0
 
 # wallpaper
-exec --no-startup-id feh --bg-scale ~/.i3/2.jpg
+exec --no-startup-id feh --bg-scale ~/.i3/wp.jpg
 
 # установка раскладки клавиатуры и ее переключения
 exec --no-startup-id setxkbmap -layout 'us,ru' -variant 'winkeys' -option 'grp:caps_toggle,grp_led:caps'
