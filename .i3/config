@@ -9,16 +9,34 @@
 #   Autostart                 #
 ###############################
 
+# менеджер питания (для уведомлений о разряженной батареи)
+exec --no-startup-id xfce4-power-manager
+
 # prevent sleep
 exec --no-startup-id xset s off
 exec --no-startup-id xset dpms 0 0 0
 
-exec --no-startup-id feh --bg-scale ~/.i3/cCyPTe3d1OA.jpg
+# wallpaper
+exec --no-startup-id feh --bg-scale ~/.i3/2.jpg
+
+# установка раскладки клавиатуры и ее переключения
 exec --no-startup-id setxkbmap -layout 'us,ru' -variant 'winkeys' -option 'grp:caps_toggle,grp_led:caps'
+
+# апплет сетевых подключений
 # exec --no-startup-id nm-applet
+
+# отображение и переключение раскладок клавиатуры
 # exec --no-startup-id gxkb
+
+# композитный менеджер
 exec --no-startup-id compton -CGb --backend glx --vsync opengl --paint-on-overlay
+
+# менеджер bluetooth соединений
 exec --no-startup-id blueman-applet
+
+# менеджер буфера обмена
+exec --no-startup-id clipit
+
 
 # startup volume
 # exec pulseaudio
@@ -30,6 +48,7 @@ exec --no-startup-id blueman-applet
 #   Variables                 #
 ###############################
 set $mod Mod4
+set $terminal xfce4-terminal
 
 ###############################
 #   Fonts                     #
@@ -45,10 +64,15 @@ floating_modifier $mod
 ###############################
 #   Border style              #
 ###############################
-new_window  pixel 0
+new_window  pixel 1
 new_float   pixel 1
-#hide_edge_borders none
 hide_edge_borders both
+
+gaps inner 0
+gaps outer 0
+
+popup_during_fullscreen smart
+focus_follows_mouse yes
 
 ###############################
 #   Colors                    #
@@ -60,15 +84,35 @@ client.unfocused        #1d1f21 #1d1f21 #ECEFF1 #37474F
 client.urgent           #C62828 #C62828 #FFEBEE #D32F2F
 client.placeholder      #1d1f21 #1d1f21 #ECEFF1 #37474F
 
+
+###############################
+#   Program Workspaces        #
+###############################
+# check class with "xprop"
+
+assign [class="Firefox"] Firefox
+assign [class="google-chrome"] 1
+assign [class="jetbrains-phpstorm"] 2
+assign [class="Skype"] 10
+
+assign [class="Subl3"] 3
+assign [class="Spotify"] 9
+
 ###############################
 #   Keyboard bindings         #
 ###############################
+
+# поместить текущее окнов лимб (scratchpad)
+bindsym $mod+Shift+minus move scratchpad
+
+# показать окно из лимба
+bindsym $mod+minus scratchpad show
 
 # ALT-TAB
 bindsym Mod1+Tab workspace back_and_forth
 
 # start a terminal
-bindsym $mod+Return exec --no-startup-id xfce4-terminal --hide-menubar
+bindsym $mod+Return exec --no-startup-id $terminal --hide-menubar
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -77,6 +121,9 @@ bindsym $mod+Shift+q kill
 bindsym $mod+d exec --no-startup-id dmenu_run -fn '-*-ubuntu mono-medium-r-*-*-16-*-*-*-*-*-*-*' -sb '#005544' -sf '#D5A500'
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu="dmenu -fn '-*-ubuntu mono-medium-r-*-*-16-*-*-*-*-*-*-*'"
 # bindsym $mod+Shift+d exec --no-startup-id j4-dmenu-desktop --dmenu="dmenu -fn '-*-ubuntu mono-medium-r-*-*-16-*-*-*-*-*-*-*' -sb '#005544' -sf '#D5A500'"
+
+# start rofi (a program launcher)
+bindsym $mod+Shift+d exec rofi -show drun -lines 5 -fullscreen -padding 250 -opacity 95 -font "System San Francisco Display 18"
 
 # change focus
 bindsym $mod+j focus left
@@ -155,6 +202,8 @@ bindsym $mod+Shift+0 move container to workspace 10
 # reload the configuration file
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
+
+bindsym $mod+Shift+w exec --no-startup-id $terminal --hide-menubar on workspace 4
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -249,18 +298,23 @@ mode "$mode_system" {
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-colors {
-    background #000000
-    statusline #9944ff
-    focused_workspace  #ddd399 #492b2b
-    active_workspace   #492b2b #492b2b 
-    inactive_workspace #617361 #443344 
-    urgent_workspace   #2f343a #900000 
-
-#    urgent_workspace   #000000 #000000 
-}
+    font pango: System San Francisco Display, FontAwesome 10
     position top
     status_command ~/.i3/conky-i3bar_top
+    tray_padding 2
+    separator_symbol "❱"
+    binding_mode_indicator yes
+    colors {
+        background #000000
+        statusline #9944ff
+        focused_workspace  #ddd399 #492b2b
+        active_workspace   #492b2b #492b2b 
+        inactive_workspace #617361 #443344 
+        urgent_workspace   #2f343a #900000 
+        binding_mode       #B589ff #402519
+
+    #    urgent_workspace   #000000 #000000 
+    }
 }
 
 #bar {
@@ -270,4 +324,3 @@ colors {
 #    tray_output       none
 #    mode hide
 #}
-

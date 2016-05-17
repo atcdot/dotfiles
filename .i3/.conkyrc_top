@@ -6,8 +6,8 @@ TEXT
 [
 {"full_text": " ▲ ${upspeed wlp2s0} ", "color":"\#dc322f"},
 {"full_text": " ▼ ${downspeed wlp2s0} ", "color":"\#B589ff"},
-{"full_text" : " / ${fs_free /} ", "color":"\#268BD2"},
-{"full_text" : " /home ${fs_free /home} ", "color":"\#ffB589"},
+{"full_text" : " ⛀ ${fs_free /} ", "color":"\#268BD2"},
+{"full_text" : " ⛁ ${fs_free /home} ", "color":"\#ffB589"},
 {"full_text": " ☢ ${cpu}% ", "color":"\#0FA625"},
 {"full_text": " ⣿ ${memperc}% ", "color":"\#B58900"},
 {"full_text": " ♪ ${exec amixer get Master |grep 'Front Left' | grep -o "[[:digit:]]*%"} ", "color":"\#c0d010"},
