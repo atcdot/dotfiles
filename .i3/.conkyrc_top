@@ -4,14 +4,15 @@ out_to_console yes
 update_interval 1
 TEXT
 [
-{"full_text": " ▲ ${upspeed wlp2s0} ", "color":"\#dc322f"},
-{"full_text": " ▼ ${downspeed wlp2s0} ", "color":"\#B589ff"},
+{"full_text": " ▲ ${upspeed enp3s0} ", "color":"\#dc322f"},
+{"full_text": " ▼ ${downspeed enp3s0} ", "color":"\#B589ff"},
 {"full_text" : " ⛀ ${fs_free /} ", "color":"\#268BD2"},
 {"full_text" : " ⛁ ${fs_free /home} ", "color":"\#ffB589"},
 {"full_text": " ☢ ${cpu}% ", "color":"\#0FA625"},
+{"full_text": " ߷߷ࠏࠏࠏᚎ ${swapperc}% ", "color":"\#00A9B5"},
 {"full_text": " ⣿ ${memperc}% ", "color":"\#B58900"},
 {"full_text": " ♪ ${exec amixer get Master |grep 'Front Left' | grep -o "[[:digit:]]*%"} ", "color":"\#c0d010"},
-{ "full_text" : " ⚡ ${battery_percent}% " , "color" : "\#cb9cd4" },
+#{ "full_text" : " ⚡ ${battery_percent}% " , "color" : "\#cb9cd4" },
 {"full_text": " ${time %a %d %b} ${time %H:%M:%S} ","color": "\#2fdc57"}],
 
 #{"full_text": "Mail ${execi 600 ~/.i3/.my/mail.py} ","color":"\#87ff73"},
@@ -23,4 +24,5 @@ TEXT
 #
 #wlp2s0
 #enp3s0f2
-#
+#enp3s0
+# ip link

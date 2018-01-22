@@ -3,24 +3,45 @@
 #   Configuring i3            #
 #                             #
 ###############################
+#fake-outputs 3840x1080+0+0
+#fake-outputs 1920x1080+0+0,1920x1080+0+0
+#bindsym Shift+w mode "workspace"
+
+#bindsym $mod + Shift + s exec --no-startup-id xfce4-screenshooter
+
+#mode "workspace" {
+# Switch to workspace.
+# This depends on my having set up odd workspaces on the left monitor
+# and even workspaces on the right monitor.
+#bindsym a workspace 1; workspace 2; mode "default"
+#bindsym b workspace 3; workspace 4; mode "default"
+#bindsym c workspace 5; workspace 6; mode "default"
+#bindsym d workspace 7; workspace 8; mode "default"
+#bindsym e workspace 9; workspace 10; mode "default"
+#}
 
 
 ###############################
 #   Autostart                 #
 ###############################
 
+exec --no-startup-id xrandr --output VGA1 --mode 1920x1080 --output HDMI2 --mode 1920x1080 --right-of VGA1
+#exec --no-startup-id "i3-msg workspace 1 && i3-msg move workspace to output left && i3-msg workspace 2 && i3-msg move workspace to output right"
+
 # менеджер питания (для уведомлений о разряженной батареи)
 exec --no-startup-id xfce4-power-manager
+exec --no-startup-id volumeicon
 
 # prevent sleep
 exec --no-startup-id xset s off
 exec --no-startup-id xset dpms 0 0 0
 
 # wallpaper
-exec --no-startup-id feh --bg-scale ~/.i3/wp.jpg
+exec --no-startup-id feh --bg-scale --randomize ~/.i3/wallpapers/
+exec --no-startup-id redshift &
 
 # установка раскладки клавиатуры и ее переключения
-exec --no-startup-id setxkbmap -layout 'us,ru' -variant 'winkeys' -option 'grp:caps_toggle,grp_led:caps'
+exec --no-startup-id setxkbmap -layout 'us,ru' -variant 'winkeys' -option 'grp:alt_shift_toggle,grp:caps_toggle,grp_led:caps'
 
 # апплет сетевых подключений
 # exec --no-startup-id nm-applet
@@ -35,7 +56,7 @@ exec --no-startup-id compton -CGb --backend glx --vsync opengl --paint-on-overla
 exec --no-startup-id blueman-applet
 
 # менеджер буфера обмена
-exec --no-startup-id clipit
+# exec --no-startup-id clipit
 
 
 # startup volume
@@ -68,8 +89,8 @@ new_window  pixel 1
 new_float   pixel 1
 hide_edge_borders both
 
-gaps inner 0
-gaps outer 0
+#gaps inner 0
+#gaps outer 0
 
 popup_during_fullscreen smart
 focus_follows_mouse yes
@@ -90,7 +111,7 @@ client.placeholder      #1d1f21 #1d1f21 #ECEFF1 #37474F
 ###############################
 # check class with "xprop"
 
-assign [class="Firefox"] Firefox
+assign [class="Firefox"] 1
 assign [class="google-chrome"] 1
 assign [class="jetbrains-phpstorm"] 2
 assign [class="Skype"] 10
@@ -101,6 +122,8 @@ assign [class="Spotify"] 9
 ###############################
 #   Keyboard bindings         #
 ###############################
+
+bindsym F1 exec --no-startup-id xfce4-terminal --drop-down
 
 # поместить текущее окнов лимб (scratchpad)
 bindsym $mod+Shift+minus move scratchpad
@@ -123,7 +146,7 @@ bindsym $mod+d exec --no-startup-id dmenu_run -fn '-*-ubuntu mono-medium-r-*-*-1
 # bindsym $mod+Shift+d exec --no-startup-id j4-dmenu-desktop --dmenu="dmenu -fn '-*-ubuntu mono-medium-r-*-*-16-*-*-*-*-*-*-*' -sb '#005544' -sf '#D5A500'"
 
 # start rofi (a program launcher)
-bindsym $mod+Shift+d exec rofi -show drun -lines 5 -fullscreen -padding 250 -opacity 95 -font "System San Francisco Display 18"
+# bindsym $mod+Shift+d exec rofi -show drun -lines 5 -fullscreen -padding 250 -opacity 95 -font "System San Francisco Display 18"
 
 # change focus
 bindsym $mod+j focus left
@@ -149,9 +172,13 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
+bindsym $mod+Ctrl+Left move workspace to output left
+bindsym $mod+Ctrl+Down move workspace to output down
+bindsym $mod+Ctrl+Up move workspace to output up
+bindsym $mod+Ctrl+Right move workspace to output right
+
 # split in horizontal orientation
 bindsym $mod+h split h
-
 # split in vertical orientation
 bindsym $mod+v split v
 
@@ -232,9 +259,9 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # change keyboard layout
-bindsym $mod+Ctrl+1 exec --no-startup-id ~/.i3/.my/keyboard
-bindsym $mod+Ctrl+2 exec --no-startup-id setxkbmap us -variant dvorak
-#bindsym $mod+Ctrl+3 exec --no-startup-id setxkbmap ua
+# bindsym $mod+Ctrl+1 exec --no-startup-id ~/.i3/.my/keyboard
+# bindsym $mod+Ctrl+2 exec --no-startup-id setxkbmap us -variant dvorak
+# bindsym $mod+Ctrl+3 exec --no-startup-id setxkbmap ua
 
 # Volume buttons
 bindsym XF86AudioMute exec --no-startup-id amixer -q sset Master toggle
@@ -247,6 +274,11 @@ bindsym XF86AudioPlay exec --no-startup-id ~/.i3/.my/audiocontrols.sh play
 bindsym XF86AudioStop exec --no-startup-id ~/.i3/.my/audiocontrols.sh stop 
 bindsym XF86AudioNext exec --no-startup-id ~/.i3/.my/audiocontrols.sh next
 bindsym XF86AudioPrev exec --no-startup-id ~/.i3/.my/audiocontrols.sh prev
+
+bindsym $mod+End exec --no-startup-id ~/.i3/.my/audiocontrols.sh play
+bindsym $mod+Next exec --no-startup-id ~/.i3/.my/audiocontrols.sh next
+bindsym $mod+Prior exec --no-startup-id ~/.i3/.my/audiocontrols.sh prev
+
 # bindsym XF86AudioRaiseVolume exec --no-startup-id amixer set Master 3%+ unmute
 # bindsym XF86AudioLowerVolume exec --no-startup-id amixer set Master 3%- unmute
 # bindsym XF86AudioMute exec --no-startup-id amixer set Master mute
@@ -262,7 +294,7 @@ bindsym $mod+t border toggle
 bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 5
 bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 5
 
-bindsym $mod+c exec --no-startup-id Thunar
+bindsym $mod+c exec --no-startup-id pcmanfm
 
 #####################################################
 #                                                   #
